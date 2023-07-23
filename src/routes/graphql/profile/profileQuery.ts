@@ -4,7 +4,7 @@ import { Context } from '../types/context.js';
 import { Profile } from '@prisma/client';
 import { ProfileType } from './profileType.js';
 
-export const getProfileQuery = {
+export const getProfile = {
   profile: {
     type: ProfileType as GraphQLObjectType,
     args: {

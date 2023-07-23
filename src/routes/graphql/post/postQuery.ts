@@ -4,7 +4,7 @@ import { UUIDType } from '../types/uuid.js';
 import { Post } from '@prisma/client';
 import { Context } from '../types/context.js';
 
-export const getPostQuery = {
+export const getPost = {
   post: {
     type: PostType as GraphQLObjectType,
     args: {

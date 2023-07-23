@@ -4,7 +4,7 @@ import { Context } from '../types/context.js';
 import { UUIDType } from '../types/uuid.js';
 import { User } from '@prisma/client';
 
-export const getUserQuery = {
+export const getUser = {
   user: {
     type: UserType as GraphQLObjectType,
     args: {

@@ -2,6 +2,7 @@ import { PostType } from "./postType.js";
 import { ChangePostInput, CreatePostInput } from "./postInput.js";
 import { Context } from "../types/context.js";
 import { UUIDType } from "../types/uuid.js";
+import { GraphQLObjectType } from "graphql";
 
 export interface ICreatePost {
     dto: {
@@ -21,7 +22,7 @@ export interface IChangePost {
 
 export const PostMutation = {
     createPost: {
-        type: PostType,
+        type: PostType as GraphQLObjectType,
         args: {
             dto: {type: CreatePostInput},
         },
@@ -29,7 +30,7 @@ export const PostMutation = {
             await prisma.post.create({ data: dto})},
     },
     changePost: {
-      type: PostType,
+      type: PostType as GraphQLObjectType,
       args: { id: { type: UUIDType}, dto: { type: ChangePostInput } },
       resolve: async (__: unknown, {id, dto}:IChangePost, { prisma }: Context) =>{
         await prisma.post.update({ where: { id }, data: dto })},

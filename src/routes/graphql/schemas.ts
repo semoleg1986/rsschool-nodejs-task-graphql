@@ -1,9 +1,9 @@
 import { Type } from '@fastify/type-provider-typebox';
 import { GraphQLObjectType, GraphQLSchema } from 'graphql';
-import { getUserQuery } from './users/userQuery.js';
-import { getMemberQuery } from './memberType/memberQuery.js';
-import { getPostQuery } from './post/postQuery.js';
-import { getProfileQuery } from './profile/profileQuery.js';
+import { getUser } from './users/userQuery.js';
+import { getMember} from './memberType/memberQuery.js';
+import { getPost } from './post/postQuery.js';
+import { getProfile } from './profile/profileQuery.js';
 // import { UserMutation } from './users/userMutation.js';
 import { PostMutation } from './post/postMutation.js';
 import { UserMutation } from './users/userMutation.js';
@@ -35,10 +35,10 @@ export const createGqlResponseSchema = {
 const query = new GraphQLObjectType({
   name: 'Query',
   fields: {
-    ...getUserQuery,
-    ...getMemberQuery,
-    ...getPostQuery,
-    ...getProfileQuery,
+    ...getUser,
+    ...getMember,
+    ...getPost,
+    ...getProfile,
   },
 });
 
