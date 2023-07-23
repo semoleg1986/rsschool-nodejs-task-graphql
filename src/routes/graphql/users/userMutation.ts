@@ -1,6 +1,6 @@
 import { GraphQLNonNull, GraphQLObjectType } from "graphql";
 import { UserType } from "./userType.js";
-import { CreateUserInput } from "./userInput.js";
+import { ChangeUserInput, CreateUserInput } from "./userInput.js";
 import { Context } from "../types/context.js";
 import { UUIDType } from '../types/uuid.js';
 
@@ -10,7 +10,13 @@ export interface ICreateUser {
       balance: number;
     };
   }
-
+  export interface IChangeUser {
+    id: string,
+    dto: {
+      name: string;
+      balance: number;
+    };
+  }
 
 export const UserMutation = {
     createUser: {
@@ -25,9 +31,9 @@ export const UserMutation = {
         type: UserType as GraphQLObjectType,
         args: {
             id: {type: new GraphQLNonNull(UUIDType)},
-            dto: {type: new GraphQLNonNull(CreateUserInput)},
+            dto: {type: ChangeUserInput},
         },
-        resolve: async (__: unknown, {id, dto}:{ id: string, dto: ICreateUser }, { prisma }: Context) => 
+        resolve: async (__: unknown, {id, dto}:{ id: string, dto: IChangeUser }, { prisma }: Context) => 
             await prisma.user.update({where: {id}, data: dto})
     },
 
@@ -36,8 +42,14 @@ export const UserMutation = {
         args:{
             id: {type: new GraphQLNonNull(UUIDType)},
         },
-        resolve: async (__: unknown, { id }: { id: string }, { prisma }: Context) => 
-            await prisma.user.delete({where: {id} })
+        resolve: async (__: unknown, { id }: { id: string }, { prisma }: Context) => {
+            try {
+                await prisma.user.delete({where: {id} })
+                return id; 
+              } catch {
+                return null;
+              }
+        }
     },
     subscribeTo: {
         type: UserType as GraphQLObjectType,

@@ -1,4 +1,4 @@
-import { GraphQLList, GraphQLObjectType } from 'graphql';
+import { GraphQLList, GraphQLNonNull, GraphQLObjectType } from 'graphql';
 import { PostType } from './postType.js';
 import { UUIDType } from '../types/uuid.js';
 import { Post } from '@prisma/client';
@@ -8,13 +8,10 @@ export const getPost = {
   post: {
     type: PostType as GraphQLObjectType,
     args: {
-      id: { type: UUIDType },
+      id: { type: new GraphQLNonNull(UUIDType) },
     },
-    resolve: async (__: unknown, args: Post, { prisma }: Context) => {
-      const { id } = args;
-      const post = await prisma.post.findUnique({ where: { id } });
-      return post;
-    },
+    resolve: async (__: unknown, { id }: Post, { prisma }: Context) => 
+    await prisma.post.findUnique({ where: { id } }),
   },
 
   posts: {

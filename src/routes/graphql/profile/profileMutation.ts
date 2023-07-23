@@ -35,7 +35,7 @@ export const ProfileMutation = {
         type: ProfileType as GraphQLObjectType,
         args: {
             id: { type: new GraphQLNonNull(UUIDType)},
-            dto: {type: new GraphQLNonNull(ChangeProfileInput)}
+            dto: {type: ChangeProfileInput}
         },
         resolve: async (__: unknown, {id, dto}:IChangeProfile, {prisma}: Context) =>
             await prisma.profile.update({ where: { id }, data: dto }),
@@ -44,7 +44,13 @@ export const ProfileMutation = {
         type: ProfileType as GraphQLObjectType,
         args: {id: {type: new GraphQLNonNull(UUIDType) }},
         resolve: async (__: unknown, {id}:{id:string},{ prisma }: Context) =>{
-          await prisma.profile.delete({ where: { id } })},
+            try {
+                await prisma.profile.delete({ where: { id } });
+                return id;
+            } catch (error) {
+                return null;
+            }
+        },
       }
 
 }
