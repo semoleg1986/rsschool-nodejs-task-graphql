@@ -4,6 +4,7 @@ import { getUserQuery } from './users/userQuery.js';
 import { getMemberQuery } from './memberType/memberQuery.js';
 import { getPostQuery } from './post/postQuery.js';
 import { getProfileQuery } from './profile/profileQuery.js';
+import { UserMutation } from './users/userMutation.js';
 
 
 
@@ -36,6 +37,11 @@ const query = new GraphQLObjectType({
   },
 });
 
+const mutation = new GraphQLObjectType({
+  name: 'Mutation',
+  fields: {
+    ...UserMutation,
+  }
+})
 
-
-export const graphQLSchema = new GraphQLSchema({ query });
+export const graphQLSchema = new GraphQLSchema({ query, mutation });
