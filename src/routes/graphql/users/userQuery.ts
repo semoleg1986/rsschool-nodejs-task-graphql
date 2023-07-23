@@ -1,5 +1,5 @@
 import { GraphQLList, GraphQLObjectType } from 'graphql';
-import { UserType } from './typeUser.js';
+import { UserType } from './userType.js';
 import { Context } from '../types/context.js';
 import { UUIDType } from '../types/uuid.js';
 import { User } from '@prisma/client';

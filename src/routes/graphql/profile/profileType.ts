@@ -1,9 +1,9 @@
 import { GraphQLBoolean, GraphQLInt, GraphQLObjectType } from 'graphql';
 import { Profile } from '@prisma/client';
 import { UUIDType } from '../types/uuid.js';
-import { UserType } from '../users/typeUser.js';
+import { UserType } from '../users/userType.js';
 import { Context } from '../types/context.js';
-import { MemberType, MemberTypeIdEnum } from '../memberType/typeMember.js';
+import { MemberType, MemberTypeIdEnum } from '../memberType/memberType.js';
 
 export const ProfileType = new GraphQLObjectType({
   name: 'Profile',

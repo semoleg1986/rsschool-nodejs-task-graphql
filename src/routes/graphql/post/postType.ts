@@ -2,7 +2,7 @@ import { GraphQLObjectType, GraphQLString } from 'graphql';
 import { Context } from '../types/context.js';
 import { Post } from '@prisma/client';
 import { UUIDType } from '../types/uuid.js';
-import { UserType } from '../users/typeUser.js';
+import { UserType } from '../users/userType.js';
 
 export const PostType = new GraphQLObjectType({
   name: 'Post',

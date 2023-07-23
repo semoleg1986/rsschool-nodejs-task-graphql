@@ -5,11 +5,10 @@ import {
     GraphQLObjectType,
     GraphQLEnumType,
   } from 'graphql';
-  import { MemberType as PrismaMemberType } from '@prisma/client';
-  import { Context } from '../types/context.js';
-  import { ProfileType } from '../profile/typeProfile.js';
-
-  import { MemberTypeId } from '../../member-types/schemas.js';
+import { MemberType as PrismaMemberType } from '@prisma/client';
+import { Context } from '../types/context.js';
+import { MemberTypeId } from '../../member-types/schemas.js';
+import { ProfileType } from '../profile/profileType.js';
   
   export const MemberTypeIdEnum = new GraphQLEnumType({
     name: 'MemberTypeId',

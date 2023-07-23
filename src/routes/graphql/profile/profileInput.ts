@@ -1,6 +1,6 @@
 import { GraphQLBoolean, GraphQLInputObjectType, GraphQLInt } from "graphql";
 import { UUIDType } from "../types/uuid.js";
-import { MemberTypeIdEnum } from "../memberType/typeMember.js";
+import { MemberTypeIdEnum } from "../memberType/memberType.js";
 
 export const CreateProfileInput = new GraphQLInputObjectType ({
     name: 'CreateProfileInput',

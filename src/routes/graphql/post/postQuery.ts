@@ -1,5 +1,5 @@
 import { GraphQLList, GraphQLObjectType } from 'graphql';
-import { PostType } from './typePost.js';
+import { PostType } from './postType.js';
 import { UUIDType } from '../types/uuid.js';
 import { Post } from '@prisma/client';
 import { Context } from '../types/context.js';
