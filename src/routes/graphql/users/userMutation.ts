@@ -57,7 +57,7 @@ export const UserMutation = {
           });
         },
       },
-      unsubscribeFrom: {
+    unsubscribeFrom: {
         type: UUIDType,
         args: {
           userId: { type: new GraphQLNonNull(UUIDType) },
@@ -78,5 +78,6 @@ export const UserMutation = {
             },
           });
           return userId;
-        },}
+        },
+    }
 };
