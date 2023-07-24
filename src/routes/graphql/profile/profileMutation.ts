@@ -35,9 +35,9 @@ export const ProfileMutation = {
         type: ProfileType as GraphQLObjectType,
         args: {
             id: { type: new GraphQLNonNull(UUIDType)},
-            dto: {type: ChangeProfileInput}
+            dto: {type: new GraphQLNonNull(ChangeProfileInput)}
         },
-        resolve: async (__: unknown, {id, dto}:IChangeProfile, {prisma}: Context) =>
+        resolve: async (__: unknown, {id, dto}:{id: string, dto:IChangeProfile}, {prisma}: Context) =>
             await prisma.profile.update({ where: { id }, data: dto }),
     },
     deleteProfile: {

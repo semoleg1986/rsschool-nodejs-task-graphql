@@ -27,7 +27,7 @@ export const UserMutation = {
         resolve: async (__: unknown, {dto}: ICreateUser, {prisma}: Context) => await prisma.user.create({data: dto})
     },
 
-    updateUser: {
+    changeUser: {
         type: UserType as GraphQLObjectType,
         args: {
             id: {type: new GraphQLNonNull(UUIDType)},
