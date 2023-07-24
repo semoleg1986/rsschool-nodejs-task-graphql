@@ -5,6 +5,7 @@ import { ProfileType } from '../profile/profileType.js';
 import { User } from '@prisma/client';
 import { Context } from '../types/context.js';
 import { PostType } from '../post/postType.js';
+import { IUserSub } from '../types/subscription.js';
 
 export const UserType = new GraphQLObjectType({
   name: 'User',
@@ -24,16 +25,29 @@ export const UserType = new GraphQLObjectType({
       resolve: async ({ id }: User, __: unknown, { loaders }: Context) => 
         await loaders.postDataLoader.load(id),
     },
-
+    
     userSubscribedTo: {
       type: new GraphQLList(UserType),
-      resolve: async ({ id }: User, __: unknown, { loaders }: Context) =>
-      await loaders.userSubDataLoader.load(id),
+      resolve: async ({ userSubscribedTo }: IUserSub, __: unknown, { loaders }: Context) => {
+        if (Array.isArray(userSubscribedTo)){
+          const authorIds = userSubscribedTo.map(({authorId})=>authorId)
+          const users = await loaders.userDataLoader.loadMany(authorIds)
+          return users
+        }
+      }
+
     },
     subscribedToUser: {
       type: new GraphQLList(UserType),
-      resolve: async ({ id }: User, __: unknown, { loaders }: Context) =>
-      await loaders.subUserDataLoader.load(id),
+      resolve: async ({ subscribedToUser }: IUserSub, __: unknown, { loaders }: Context) => {
+        if (Array.isArray(subscribedToUser)){
+          const subscriberIds = subscribedToUser.map(({ subscriberId }) => subscriberId);
+          const users = await loaders.userDataLoader.loadMany(subscriberIds)
+          return users
+        }
+
+      }
+
     },
   }),
 });
