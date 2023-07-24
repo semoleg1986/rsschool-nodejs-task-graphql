@@ -15,17 +15,14 @@ export const UserType = new GraphQLObjectType({
     balance: { type: GraphQLFloat },
     profile: {
       type: ProfileType as GraphQLObjectType,
-      resolve: async ({ id }: User, __: unknown, { loaders }: Context) => {
-        const profile = await loaders.profileDataLoader.load(id)
-        return profile;
-      }
-
+      resolve: async ({ id }: User, __: unknown, { loaders }: Context) =>
+         await loaders.profileDataLoader.load(id)
     },
 
     posts: {
       type: new GraphQLList(PostType),
-      resolve: async ({ id }: User, __: unknown, { prisma }: Context) => 
-        await prisma.post.findMany({ where: { authorId: id } }),
+      resolve: async ({ id }: User, __: unknown, { loaders }: Context) => 
+        await loaders.postDataLoader.load(id),
     },
 
     userSubscribedTo: {

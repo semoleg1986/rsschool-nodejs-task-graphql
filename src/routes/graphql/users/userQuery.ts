@@ -10,8 +10,8 @@ export const getUser = {
     args: {
       id: { type: UUIDType },
     },
-    resolve: async (_: unknown, { id }: User, { prisma }: Context) =>
-      await prisma.user.findUnique({ where: { id } }),
+    resolve: async (_: unknown, { id }: User, { loaders }: Context) =>
+      await loaders.userDataLoader.load(id),
   },
 
   users: {

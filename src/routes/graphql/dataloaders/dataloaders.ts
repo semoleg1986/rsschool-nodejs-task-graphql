@@ -5,6 +5,7 @@ import { profileLoader } from "./profileDataloader.js";
 import { userLoader } from "./userDataloader.js";
 import { IDataLoaders } from "../types/context.js";
 
+
 export const createDataLoaders = (prisma: PrismaClient):IDataLoaders => {
     return {
         postDataLoader: postLoader(prisma),
