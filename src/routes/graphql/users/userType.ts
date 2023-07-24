@@ -15,8 +15,11 @@ export const UserType = new GraphQLObjectType({
     balance: { type: GraphQLFloat },
     profile: {
       type: ProfileType as GraphQLObjectType,
-      resolve: async ({ id }: User, __: unknown, { prisma }: Context) =>
-      await prisma.profile.findUnique({ where: { userId: id } }),
+      resolve: async ({ id }: User, __: unknown, { loaders }: Context) => {
+        const profile = await loaders.profileDataLoader.load(id)
+        return profile;
+      }
+
     },
 
     posts: {

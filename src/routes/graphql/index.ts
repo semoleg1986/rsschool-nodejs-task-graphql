@@ -17,7 +17,7 @@ const plugin: FastifyPluginAsyncTypebox = async (fastify) => {
     },
     async handler(req) {
       const { query, variables } = req.body;
-      const loaders = createDataLoaders
+      const loaders = createDataLoaders(prisma)
       try {
         const validationErrors = validate(graphQLSchema, parse(query), [depthLimit(5)]);
 
