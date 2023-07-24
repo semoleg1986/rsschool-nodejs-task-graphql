@@ -3,8 +3,9 @@ import { memberLoader } from "./memberDataloader.js";
 import { postLoader } from "./postDataloader.js";
 import { profileLoader } from "./profileDataloader.js";
 import { userLoader } from "./userDataloader.js";
+import { IDataLoaders } from "../types/context.js";
 
-export const createDataLoaders = (prisma: PrismaClient) => {
+export const createDataLoaders = (prisma: PrismaClient):IDataLoaders => {
     return {
         postDataLoader: postLoader(prisma),
         memberDataLoader: memberLoader(prisma),
