@@ -16,6 +16,7 @@ const plugin: FastifyPluginAsyncTypebox = async (fastify) => {
     },
     async handler(req) {
       const { query, variables } = req.body;
+
       try {
         const validationErrors = validate(graphQLSchema, parse(query), [depthLimit(5)]);
 
@@ -31,13 +32,14 @@ const plugin: FastifyPluginAsyncTypebox = async (fastify) => {
         variableValues: variables,
         contextValue: {
           prisma,
+
         },
       });
 
       return { data, errors };
     } catch (error: unknown) {
       if (error instanceof GraphQLError) console.error('GraphQL Error:', error.message);
-      return { errors: [error] };
+        return { errors: [error] };
     }
     },
   });
