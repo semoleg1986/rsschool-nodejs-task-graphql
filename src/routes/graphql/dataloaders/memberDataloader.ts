@@ -9,7 +9,8 @@ export const memberLoader = (prisma: PrismaClient) => {
         },
       });
   
-      const sortedMemberType = keys.map((id) => members.find((member) => member.id === id));
-      return sortedMemberType;
+      const sortedMember = keys.map((id) => members.find((member) => member.id === id));
+      
+      return sortedMember;
     });
   };
