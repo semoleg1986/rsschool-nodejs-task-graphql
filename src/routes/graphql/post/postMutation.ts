@@ -26,26 +26,21 @@ export const PostMutation = {
         args: {
             dto: {type: new GraphQLNonNull(CreatePostInput)},
         },
-        resolve: async (__: unknown, {dto}: ICreatePost, {prisma}: Context) =>{
-          return await prisma.post.create({ data: dto})
-        },
+        resolve: async (__: unknown, {dto}: ICreatePost, {prisma}: Context) =>
+           await prisma.post.create({ data: dto})
     },
     changePost: {
-      type: PostType as GraphQLObjectType,
+      type: PostType,
       args: { id: { type: new GraphQLNonNull(UUIDType) }, dto: { type:ChangePostInput} },
-      resolve: async (__: unknown, {id, dto}:IChangePost, { prisma }: Context) =>{
-        return await prisma.post.update({ where: { id }, data: dto })},
+      resolve: async (__: unknown, {id, dto}:IChangePost, { prisma }: Context) =>
+         await prisma.post.update({ where: { id }, data: dto }),
     },
     deletePost: {
-      type: PostType,
-      args: {id: {type: new GraphQLNonNull(UUIDType) }},
+      type: UUIDType,
+      args: {id: {type: UUIDType }},
       resolve: async (__: unknown, {id}:{id:string},{ prisma }: Context) =>{
-        try {
-          await prisma.post.delete({ where: { id } })
-        } catch {
-          return false;
-        }
-        return true;
-},
+        await prisma.post.delete({ where: { id } })
+        return id;
+      },
     }
 };

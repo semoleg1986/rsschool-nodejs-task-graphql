@@ -38,17 +38,13 @@ export const UserMutation = {
     },
 
     deleteUser:  {
-        type: UserType as GraphQLObjectType,
+        type: UUIDType,
         args:{
-            id: {type: new GraphQLNonNull(UUIDType)},
+            id: {type: UUIDType},
         },
         resolve: async (__: unknown, { id }: { id: string }, { prisma }: Context) => {
-            try {
-                await prisma.user.delete({where: {id} })
-                return id; 
-              } catch {
-                return null;
-              }
+            await prisma.user.delete({where: {id} })
+            return id;
         }
     },
     subscribeTo: {
